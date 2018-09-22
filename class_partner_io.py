@@ -169,7 +169,7 @@ class PartnerIO:
             cpm = self.format_goals_helper(pas, header, col)
 
             #### Aug fix ####
-            cpm.loc[cpm['Campaign Name'].str.contains('Xiidra'), 'End Date'] = date(2018, 8, 1)
+            #cpm.loc[cpm['Campaign Name'].str.contains('Xiidra'), 'End Date'] = date(2018, 8, 1)
             #################
 
             if self.site != 'Drugs':  # Drugs has its own disc column in PAS
@@ -193,7 +193,7 @@ class PartnerIO:
             ms = cpuv_goals[-cpuv_goals['Line Description'].str.contains('Competitive Conquesting', case=False) & -cpuv_goals['Line Description'].str.contains('Brand Championing', case=False)]
 
             #### Aug fix ####
-            cc.loc[cc['Campaign Name'].str.contains('Xiidra'), 'End Date'] = date(2018, 8, 19)
+            #cc.loc[cc['Campaign Name'].str.contains('Xiidra'), 'End Date'] = date(2018, 8, 19)
             #################
 
             ruconest_ms_ld = 'HL D MNT m.HL m.D m.MNT Sponsorship of HAE Microsite (inc. D GRx Competitive Conquesting - See list)'

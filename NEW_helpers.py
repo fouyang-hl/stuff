@@ -79,8 +79,8 @@ def get_salesforce_login_info():
     """
 
     username = 'kumiko.kashii@healthline.com'
-    password = 'Eggplant123'
-    security_token = 'wq3nA7vy9zD9AllhVMgMAacHQ'
+    password = 'data007team'
+    security_token = '1nT42QawFDRq1iR3p5agqy8d1'
     return (username, password, security_token)
 
 def make_das(use_scheduled_units=False, export=False):

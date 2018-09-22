@@ -4,7 +4,7 @@ from class_partner_io import *
 
 #############################################
 run = {'drugs cpuv hit goal': False,  # Non-exclusive TS: Cialis, Mydayis, Otezla PsA (Metho), Taltz (Remicade)  # Paused already: Trintellix
-       'update pas': False,
+       'update pas': True,
 
        'update partner io naming': False,
        'update partner ios': False,
@@ -15,7 +15,7 @@ run = {'drugs cpuv hit goal': False,  # Non-exclusive TS: Cialis, Mydayis, Otezl
 
        'make das': False,
 
-       'get ytd drugs revenue': True,
+       'get ytd drugs revenue': False,
        'get 2016 site reports': False}
 
 #############################################
@@ -24,25 +24,25 @@ if run['drugs cpuv hit goal']:
     drugs_cpuv_hit_goal(path_drugs_cpuv)
 
 if run['update pas']:
-    update_pas(mo_year=(8, 2018), use_sheet='Aug')
+    update_pas(mo_year=(9, 2018), use_sheet='Sep')
 
 if run['update partner io naming']:
-    for site in ['Drugs']:  # 'GoodRx'
-        update_partner_io_naming(site, mo_year=(8, 2018))
+    for site in ['Drugs', 'GoodRx']:  # 'GoodRx'
+        update_partner_io_naming(site, mo_year=(9, 2018))
 
 if run['update partner ios']:
-    for site in ['Drugs']:
-        PartnerIO.update(site, mo_year=(8, 2018), ith_disc_update=1)
+    for site in ['Drugs', 'GoodRx']:
+        PartnerIO.update(site, mo_year=(9, 2018), ith_disc_update=1)
     #PartnerIO.update_goodrx_booked()
 
 #############################################
 if run['new month partner ios']:
     for site in ['Drugs']:  # , 'GoodRx'
-        PartnerIO.make(site=site, mo_year=(8, 2018))
+        PartnerIO.make(site=site, mo_year=(9, 2018))
 
 if run['compare partner goals for next month']:
-    before_sheet = 'Jul'
-    now_sheet = 'Aug'
+    before_sheet = 'Aug'
+    now_sheet = 'Sep'
     csv_name = before_sheet + '2' + now_sheet + '_GoalChanges.csv'
     df_pas = compare_pas(year=2018, before_pas_sheet=before_sheet, now_pas_sheet=now_sheet)
     df_cpuv_goals = compare_cpuv_goals(year=2018, before_cpuv_goals_sheet=before_sheet, now_cpuv_goals_sheet=now_sheet)
@@ -68,8 +68,9 @@ if run['get ytd drugs revenue']:
         3: '//sfo-nas02/shared/departments/AdOps/Ad Ops/Billing/2018 Billing/03-2018/FINAL_March_2018_Site_Report_04232018.xlsx',
         4: '//sfo-nas02/shared/departments/AdOps/Ad Ops/Billing/2018 Billing/04-2018/FINAL_April_2018_Site_Report_06272018.xlsx',
         5: '//sfo-nas02/shared/departments/AdOps/Ad Ops/Billing/2018 Billing/05-2018/FINAL_May_2018_Site_Report_06272018.xlsx',
-        6: '//sfo-nas02/shared/departments/AdOps/Ad Ops/Billing/2018 Billing/06-2018/FINAL_June_2018_Site_Report_07252018.xlsx',
-        7: '//sfo-nas02/shared/departments/AdOps/Ad Ops/Billing/2018 Billing/07-2018/FINAL_July_2018_Site_Report_08162018.xlsx'
+        6: '//sfo-nas02/shared/departments/AdOps/Ad Ops/Billing/2018 Billing/06-2018/FINAL_June_2018_Site_Report_08242018.xlsx',
+        7: '//sfo-nas02/shared/departments/AdOps/Ad Ops/Billing/2018 Billing/07-2018/FINAL_July_2018_Site_Report_08162018.xlsx',
+        8: '//sfo-nas02/shared/departments/AdOps/Ad Ops/Billing/2018 Billing/08-2018/FINAL_August_2018_Site_Report_09192018.xlsx'
     }
 
     combined_sr, drugs = get_ytd_drugs_revenue(path_dict)
