@@ -112,7 +112,7 @@ def update_pas(mo_year, use_sheet):
     das = das[(das[das_month] > 0) & (das['Price Calculation Type'] == 'CPM') &
               (das['Stage'] != 'Cancelled Without Activity') &
               (das['Campaign Manager'] != 'SEM')]
-    das = das[['Campaign Name', 'Product', 'Campaign Manager', 'Account Name', 'Start Date', 'End Date', 'Contracted Sites', 'Line Item Number',
+    das = das[['OLI', 'Campaign Name', 'Product', 'Campaign Manager', 'Account Name', 'Start Date', 'End Date', 'Contracted Sites', 'Line Item Number',
                'Line Description', 'Contracted Sizes', 'Sales Price', das_month]]
 
     # Import PAS data to use
@@ -121,15 +121,15 @@ def update_pas(mo_year, use_sheet):
     pas_sites = pas_header[pas_header.index('Drugs'): pas_header.index('HL')+1]
     pas_use_sheet_mo_yr = pas_header[pas_header.index('Drugs Rate') + 1]
 
-    pas = pas[['Campaign Name', 'Line Description', 'MTD Disc', 'Overall MTD Disc', 'Drugs Rate', pas_use_sheet_mo_yr, 'Drugs Rev'] + pas_sites]
-    pas['Line Description'] = [ld.strip() for ld in pas['Line Description']]
+    pas = pas[['OLI', 'MTD Disc', 'Overall MTD Disc', 'Drugs Rate', pas_use_sheet_mo_yr, 'Drugs Rev'] + pas_sites]
+    #pas['Line Description'] = [ld.strip() for ld in pas['Line Description']]
 
     # Make updates
     if das_month == pas_use_sheet_mo_yr:
         pas_use_sheet_mo_yr = 'Old ' + pas_use_sheet_mo_yr
         pas = pas.rename(columns={das_month: pas_use_sheet_mo_yr})
 
-    pas = pd.merge(das, pas, how='left', on=['Campaign Name', 'Line Description'])
+    pas = pd.merge(das, pas, how='left', on='OLI')
     pas['Change'] = pas[das_month] - pas[pas_use_sheet_mo_yr]
     pas.loc[pd.isnull(pas[pas_use_sheet_mo_yr]), 'Change'] = 'New'
 
@@ -139,7 +139,7 @@ def update_pas(mo_year, use_sheet):
     pas.loc[pas['Product'].str.contains('CPM Regular-'), 'Product'] = pas[pas['Product'].str.contains('CPM Regular-')].apply(lambda row: row['Product'].replace('CPM Regular-', ''), axis=1)
 
     # Sort
-    pas = pas[['Campaign Name', 'Product', 'Campaign Manager', 'Account Name', 'Start Date', 'End Date', 'Contracted Sites', 'Line Item Number',
+    pas = pas[['OLI', 'Campaign Name', 'Product', 'Campaign Manager', 'Account Name', 'Start Date', 'End Date', 'Contracted Sites', 'Line Item Number',
                'Line Description', 'Contracted Sizes', 'MTD Disc', 'Overall MTD Disc', 'Sales Price', 'Drugs Rate',
                das_month, pas_use_sheet_mo_yr, 'Change'] + pas_sites + ['Drugs Rev']]
 
@@ -338,8 +338,8 @@ def update_pas(mo_year, use_sheet):
                                             'fields': 'pixelSize'}},
              {'updateDimensionProperties': {'range': {'sheetId': create_sheet_id,
                                                       'dimension': 'COLUMNS',
-                                                      'startIndex': 0,
-                                                      'endIndex': 1},
+                                                      'startIndex': 1,
+                                                      'endIndex': 2},
                                             'properties': {'pixelSize': 85},
                                             'fields': 'pixelSize'}},
              {'updateDimensionProperties': {'range': {'sheetId': create_sheet_id,
