@@ -246,7 +246,7 @@ def get_cpuv_goals(year, sheet):
     # Empty cells are in the string type. Convert them to numeric (float).
     for site_goal in ['HL Goal', 'Drugs Goal', 'GoodRx Goal', 'MNT Goal', 'BCO Goal', 'LS Goal', 'EmpowHer Goal']:
         if site_goal in uv_goals_df.columns.tolist():
-            uv_goals_df[site_goal] = pd.to_numeric(uv_goals_df[site_goal])
+            uv_goals_df[site_goal] = pd.to_numeric(uv_goals_df[site_goal], errors='coerce')
 
     # Convert date columns from Int type to Date type
     for date_col in ['Start Date', 'End Date']:

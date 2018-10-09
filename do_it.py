@@ -4,10 +4,10 @@ from class_partner_io import *
 
 #############################################
 run = {'drugs cpuv hit goal': False,  # Non-exclusive TS: Cialis, Mydayis, Otezla PsA (Metho), Taltz (Remicade)  # Paused already: Trintellix
-       'update pas': True,
+       'update pas': False,
 
-       'update partner io naming': False,
-       'update partner ios': False,
+       'update partner io naming': True,
+       'update partner ios': True,
 
        'new month partner ios': False,
        'compare partner goals for next month': False,
@@ -24,25 +24,25 @@ if run['drugs cpuv hit goal']:
     drugs_cpuv_hit_goal(path_drugs_cpuv)
 
 if run['update pas']:
-    update_pas(mo_year=(9, 2018), use_sheet='Sep')
+    update_pas(mo_year=(10, 2018), use_sheet='Oct')
 
 if run['update partner io naming']:
     for site in ['Drugs', 'GoodRx']:  # 'GoodRx'
-        update_partner_io_naming(site, mo_year=(9, 2018))
+        update_partner_io_naming(site, mo_year=(10, 2018))
 
 if run['update partner ios']:
     for site in ['Drugs', 'GoodRx']:
-        PartnerIO.update(site, mo_year=(9, 2018), ith_disc_update=1)
+        PartnerIO.update(site, mo_year=(10, 2018), ith_disc_update=1)
     #PartnerIO.update_goodrx_booked()
 
 #############################################
 if run['new month partner ios']:
     for site in ['Drugs']:  # , 'GoodRx'
-        PartnerIO.make(site=site, mo_year=(9, 2018))
+        PartnerIO.make(site=site, mo_year=(10, 2018))
 
 if run['compare partner goals for next month']:
-    before_sheet = 'Aug'
-    now_sheet = 'Sep'
+    before_sheet = 'Sep'
+    now_sheet = 'Oct'
     csv_name = before_sheet + '2' + now_sheet + '_GoalChanges.csv'
     df_pas = compare_pas(year=2018, before_pas_sheet=before_sheet, now_pas_sheet=now_sheet)
     df_cpuv_goals = compare_cpuv_goals(year=2018, before_cpuv_goals_sheet=before_sheet, now_cpuv_goals_sheet=now_sheet)
