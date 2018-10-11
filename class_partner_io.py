@@ -192,20 +192,11 @@ class PartnerIO:
             cc = cpuv_goals[cpuv_goals['Line Description'].str.contains('Competitive Conquesting', case=False) | cpuv_goals['Line Description'].str.contains('Brand Championing', case=False)]
             ms = cpuv_goals[-cpuv_goals['Line Description'].str.contains('Competitive Conquesting', case=False) & -cpuv_goals['Line Description'].str.contains('Brand Championing', case=False)]
 
-            #### Aug fix ####
-            #cc.loc[cc['Campaign Name'].str.contains('Xiidra'), 'End Date'] = date(2018, 8, 19)
-            #################
-
-            ruconest_ms_ld = 'HL D MNT m.HL m.D m.MNT Sponsorship of HAE Microsite (inc. D GRx Competitive Conquesting - See list)'
-            ruconest_cc_ld = 'D GRx m.D m.GRx Competitive Conquesting (Fizayr, Cinryze, Berinert, Kalbitor, Haegarda, Ruconest) [PLACEHOLDER]'
-            breo_makegood_cc_ld = 'D m.D Competitive Conquesting (Symbicort) [Makegood]'
-            if self.site == 'Drugs':  # Adjustments
+            # Adjustments
+            if self.site == 'Drugs':
                 cc['Site Rate'] = PartnerIO.drugs_cc_rate
-                cc.loc[cc['Line Description'] == breo_makegood_cc_ld, 'Site Rate'] = 0
-                cc = cc[cc['Line Description'] != ruconest_ms_ld]
-                ms = ms.append(cpuv_goals[cpuv_goals['Line Description'] == ruconest_ms_ld])
             if self.site == 'GoodRx':
-                cc.loc[cc['Line Description'] == ruconest_cc_ld, 'Site Rate'] = 2.00
+                cc.loc[cc['Internal Campaign Name'] == 'Neulasta BC Sept - Dec 2018', ('Site Rate', site_goal_col)] = (712, 1)
 
             if PartnerIO.sec_cpuv_cc not in self.per_section:
                 self.per_section[PartnerIO.sec_cpuv_cc] = {}
