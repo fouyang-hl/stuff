@@ -4,10 +4,10 @@ from class_partner_io import *
 
 #############################################
 run = {'drugs cpuv hit goal': False,  # Non-exclusive TS: Cialis, Mydayis, Otezla PsA (Metho), Taltz (Remicade)  # Paused already: Trintellix
-       'update pas': False,
+       'update pas': True,
 
-       'update partner io naming': True,
-       'update partner ios': True,
+       'update partner io naming': False,
+       'update partner ios': False,
 
        'new month partner ios': False,
        'compare partner goals for next month': False,

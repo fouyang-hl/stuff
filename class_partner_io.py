@@ -196,7 +196,7 @@ class PartnerIO:
             if self.site == 'Drugs':
                 cc['Site Rate'] = PartnerIO.drugs_cc_rate
             if self.site == 'GoodRx':
-                cc.loc[cc['Internal Campaign Name'] == 'Neulasta BC Sept - Dec 2018', ('Site Rate', site_goal_col)] = (712, 1)
+                cc.loc[cc['Internal Campaign Name'] == 'Neulasta BC Sept - Dec 2018', ('Site Rate', site_goal_col)] = (712, 1)  # flat-fee, special case
 
             if PartnerIO.sec_cpuv_cc not in self.per_section:
                 self.per_section[PartnerIO.sec_cpuv_cc] = {}
